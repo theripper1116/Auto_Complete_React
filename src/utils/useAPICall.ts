@@ -1,12 +1,15 @@
 import { useState, useEffect } from "react";
-import { API_URL } from "./URL";
 
-const useApiCall = (str: string): Array<string> => {
-  const [storeData, setStoreData] = useState(Array<string>);
+import { API_URL } from "./URL";
+import { itemsObject } from "./interface/ItemsObject";
+
+const useApiCall = (str: string): Array<itemsObject> => {
+  const [storeData, setStoreData] = useState(Array<itemsObject>);
 
   const getAPIData = async () => {
-    const getRawData = await fetch(API_URL+str);
+    const getRawData = await fetch(API_URL + str);
     const getData = await getRawData.json();
+    setStoreData(getData?.items);
   };
 
   useEffect(() => {
